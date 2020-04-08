@@ -9,7 +9,7 @@ from dialog2 import Dialog2
 
 bd = Orm()
 
-
+print("hello")
 class InputDialog(QtWidgets.QDialog):
     def __init__(self, root, **kwargs):
         super().__init__(root, **kwargs)
