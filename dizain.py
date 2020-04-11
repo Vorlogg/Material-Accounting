@@ -52,9 +52,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_4.clicked.connect(self.search)
         self.ui.pushButton_5.hide()
         self.ui.pushButton_5.clicked.connect(self.tomain)
+        self.ui.pushButton_6.clicked.connect(self.update)
         self.now(bd.allmat())
         self.ui.pushButton_3.clicked.connect(self.delmat)
         self.id=False
+
+    def update(self):
+        self.now(bd.allmat())
 
     def now(self, data):
         if data:
