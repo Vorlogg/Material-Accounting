@@ -9,7 +9,6 @@ from dialog2 import Dialog2
 
 bd = Orm()
 
-print("hello")
 class InputDialog(QtWidgets.QDialog):
     def __init__(self, root, **kwargs):
         super().__init__(root, **kwargs)
@@ -71,7 +70,7 @@ class MainWindow(QtWidgets.QMainWindow):
             )
             self.ui.tableWidget.setHorizontalHeaderLabels(
                 ('Id', 'Название материала', 'Фирма', 'Магазин', 'Поставщик',
-                 'Наличие счета', 'Наличие НДС', 'Количество', 'Цена')
+                 'Наличие счета', 'Наличие НДС', 'Количество','Общее количество', 'Цена за ед.Грн','Общая цена.Грн')
             )
             row = 0
             for tup in data:
@@ -114,7 +113,7 @@ class MainWindow(QtWidgets.QMainWindow):
             msg.exec()
 
         else:
-            print(self.id)
+            # print(self.id)
             self.now(bd.allmat())
             self.dualog2 = Dialog2(self.id)
             self.dualog2.exec()
@@ -129,7 +128,7 @@ class MainWindow(QtWidgets.QMainWindow):
             msg.addButton('Ок',  QMessageBox.RejectRole)
             msg.exec()
         else:
-            print(self.id)
+            # print(self.id)
             bd.delmat(self.id)
             self.now(bd.allmat())
 
@@ -137,7 +136,7 @@ class MainWindow(QtWidgets.QMainWindow):
     @pyqtSlot(QModelIndex)
     def on_tableWidget_clicked(self, index: QModelIndex):  # получение индекса строки при нажатие
         self.id = int(self.ui.tableWidget.item(index.row(), 0).text())
-        print(self.id)
+        # print(self.id)
 
     @pyqtSlot(QModelIndex)
     def on_tableWidget_doubleClicked(self, index: QModelIndex):  # получение списка обьектов

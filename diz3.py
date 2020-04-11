@@ -82,4 +82,4 @@ class Ui_Dialog(object):
         self.label_5.setText(_translate("Dialog", "Наличие счета"))
         self.label_6.setText(_translate("Dialog", "Наличие ндс"))
         self.label_7.setText(_translate("Dialog", "Количество материала"))
-        self.label_8.setText(_translate("Dialog", "Общая цена"))
+        self.label_8.setText(_translate("Dialog", "Цена за ед.Грн"))

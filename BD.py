@@ -12,7 +12,9 @@ class Material(Model):
     reckoning = BooleanField()  # наличие счета да/нет
     ndc = BooleanField()  # наличие ндс да/нет
     count = BigIntegerField()  # количество взятых материалов
-    price = DoubleField()  # цена общая
+    allCount = BigIntegerField()  # общее число материалов по договору
+    price = DoubleField()  # цена за ед.
+    allprice = DoubleField()  # цена общая
 
     class Meta:
         database = db  # модель базы данных
@@ -24,7 +26,8 @@ class Facility(Model):
     facility = TextField()  # объект на который ушли материалы
     reckoning = BooleanField()  # наличие счета да/нет
     waybills = BooleanField()  # наличие накладные да/нет
-    count = BigIntegerField()  # количество взятых материалов
+    count = BigIntegerField()  # текущие число взятых материалов
+
 
     class Meta:
         database = db  # модель базы данных
@@ -60,15 +63,17 @@ class Orm():
             else:
                 ndc = "Нет"
             count = mat.count
+            allCount=mat.allCount
             price = mat.price
+            allprice = mat.allprice
 
-            r.append((id, name, company, store, supplier, reckoning, ndc, count, price))
+            r.append((id, name, company, store, supplier, reckoning, ndc, count,allCount, price,allprice))
             # print(mat.id, mat.name, mat.company, mat.store, mat.supplier, mat.reckoning, mat.ndc, mat.count, mat.price)
         return r
 
-    def addmater(self, name, company, store, supplier, reckoning, ndc, count, price):
+    def addmater(self, name, company, store, supplier, reckoning, ndc, count, price,):
         Material.create(name=name, company=company, store=store, supplier=supplier, reckoning=reckoning, ndc=ndc,
-                        count=count, price=price)
+                        count=count,allCount=count, price=price,allprice=count*price)
 
     def addfacil(self, owner, name, facility, reckoning, waybills, count):
         r = Material.get(Material.id == owner)
@@ -136,4 +141,3 @@ class Orm():
             r.append((id, name, company, store, supplier, reckoning, ndc, count, price))
             # print(mat.id, mat.name, mat.company, mat.store, mat.supplier, mat.reckoning, mat.ndc, mat.count, mat.price)
         return r
-
