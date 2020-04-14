@@ -28,6 +28,24 @@ class Facility(Model):
     waybills = BooleanField()  # наличие накладные да/нет
     count = BigIntegerField()  # текущие число взятых материалов
 
+    class Meta:
+        database = db  # модель базы данных
+
+
+class Responsible(Model):
+    name = CharField()  # имя
+    family = CharField()  # фамилия
+    patronymic = CharField()  # отчество
+    position = CharField()  # должность
+
+    class Meta:
+        database = db  # модель базы данных
+
+
+class ConstructionObject(Model):
+    facility = CharField()  # объект
+    address = CharField()  # адрес
+    contract = CharField()  # договор
 
     class Meta:
         database = db  # модель базы данных
@@ -37,6 +55,8 @@ class Orm():
     def __init__(self):
         Material.create_table()
         Facility.create_table()
+        Responsible.create_table()
+        ConstructionObject.create_table()
 
     def getmat(self, id):
         r = Material.get(Material.id == id)
@@ -63,17 +83,46 @@ class Orm():
             else:
                 ndc = "Нет"
             count = mat.count
-            allCount=mat.allCount
+            allCount = mat.allCount
             price = mat.price
             allprice = mat.allprice
 
-            r.append((id, name, company, store, supplier, reckoning, ndc, count,allCount, price,allprice))
-            # print(mat.id, mat.name, mat.company, mat.store, mat.supplier, mat.reckoning, mat.ndc, mat.count, mat.price)
+            r.append((id, name, company, store, supplier, reckoning, ndc, count, allCount, price, allprice))
         return r
 
-    def addmater(self, name, company, store, supplier, reckoning, ndc, count, price,):
+    def allres(self):
+        r = []
+        for mat in Responsible.select():
+            id = mat.id
+            name = mat.name
+            family = mat.family
+            patronymic = mat.patronymic
+            position = mat.position
+
+            r.append((id, name, family, patronymic, position))
+
+        return r
+
+    def allcon(self):
+        r = []
+        for mat in ConstructionObject.select():
+            id = mat.id
+            facility = mat.facility
+            address = mat.address
+            contract = mat.contract
+            r.append((id, facility, address, contract))
+
+        return r
+
+    def addmater(self, name, company, store, supplier, reckoning, ndc, count, price, ):
         Material.create(name=name, company=company, store=store, supplier=supplier, reckoning=reckoning, ndc=ndc,
-                        count=count,allCount=count, price=price,allprice=count*price)
+                        count=count, allCount=count, price=price, allprice=count * price)
+
+    def addres(self, name, family, patronymic, position):
+        Responsible.create(name=name, family=family, patronymic=patronymic, position=position)
+
+    def addcon(self, facility, address, contract):
+        ConstructionObject.create(facility=facility, address=address, contract=contract)
 
     def addfacil(self, owner, name, facility, reckoning, waybills, count):
         r = Material.get(Material.id == owner)
@@ -98,11 +147,18 @@ class Orm():
         r = Facility.get(Facility.id == id)
         r.delete_instance()
 
+    def delres(self, id):
+        r = Responsible.get(Responsible.id == id)
+        r.delete_instance()
+
+    def delcon(self, id):
+        r = ConstructionObject.get(ConstructionObject.id == id)
+        r.delete_instance()
+
     def allfac(self, id):
         r = []
         for fac in Facility.select().where(Facility.owner == id):
             id = fac.id
-
             name = fac.name
             facility = fac.facility
             if fac.reckoning:
@@ -136,8 +192,44 @@ class Orm():
             else:
                 ndc = "Нет"
             count = mat.count
+            allCount = mat.allCount
             price = mat.price
+            allprice = mat.allprice
 
-            r.append((id, name, company, store, supplier, reckoning, ndc, count, price))
-            # print(mat.id, mat.name, mat.company, mat.store, mat.supplier, mat.reckoning, mat.ndc, mat.count, mat.price)
+            r.append((id, name, company, store, supplier, reckoning, ndc, count, allCount, price, allprice))
+
         return r
+
+    def search_res(self, info):
+        r = []
+        for mat in Responsible.select().where(Responsible.name.contains(info)):
+            id = mat.id
+            name = mat.name
+            family = mat.family
+            patronymic = mat.patronymic
+            position = mat.position
+
+            r.append((id, name, family, patronymic, position))
+
+        return r
+
+    def search_cons(self, info):
+        r = []
+        for mat in ConstructionObject.select().where(ConstructionObject.facility.contains(info)):
+            id = mat.id
+            facility = mat.facility
+            address = mat.address
+            contract = mat.contract
+            r.append((id, facility, address, contract))
+
+        return r
+
+
+bd = Orm()
+
+# bd.addcon("Zavod", "2", "31")
+# bd.addcon("Zavod2", "2", "31")
+# bd.addcon("Zavod3", "2", "31")
+# bd.addres("Ivanov", "21", "12", "12")
+# bd.addres("Ivanov2", "21", "12", "12")
+# bd.addres("Ivanov3", "21", "12", "12")

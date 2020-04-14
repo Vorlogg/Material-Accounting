@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'diz1_2.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -10,52 +10,78 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_TwoWindow(object):
-    def setupUi(self, TwoWindow):
-        TwoWindow.setObjectName("TwoWindow")
-        TwoWindow.resize(823, 606)
-        self.centralwidget = QtWidgets.QWidget(TwoWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(753, 585)
+        self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget = QtWidgets.QTableWidget(Dialog)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
         self.verticalLayout.addWidget(self.tableWidget)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
         self.pushButton_2.setMinimumSize(QtCore.QSize(75, 0))
         self.pushButton_2.setMaximumSize(QtCore.QSize(75, 16777215))
+        self.pushButton_2.setStyleSheet("QPushButton {\n"
+"    padding-top: 5px;\n"
+"    padding-bottom: 5px;\n"
+"    padding-left: 10px;\n"
+"    padding-right: 10px;\n"
+"    background-color:  qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(230, 230, 230, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"    border-style: outset;\n"
+"    border-top-left-radius: 10;\n"
+"    border-bottom-left-radius: 10;\n"
+"    border-width: 1px;\n"
+"    border-color: rgb(110, 110, 110);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color:rgb(220,220,220);\n"
+" }\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color:rgb(200,200,200);\n"
+" }")
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout.addWidget(self.pushButton_2)
-        # self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        # self.pushButton_3.setMinimumSize(QtCore.QSize(75, 0))
-        # self.pushButton_3.setMaximumSize(QtCore.QSize(75, 16777215))
-        # self.pushButton_3.setObjectName("pushButton_3")
-        # self.horizontalLayout.addWidget(self.pushButton_3)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton.setStyleSheet("QPushButton {\n"
+"    padding-top: 5px;\n"
+"    padding-bottom: 5px;\n"
+"    padding-left: 10px;\n"
+"    padding-right: 10px;\n"
+"    background-color:  qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(230, 230, 230, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"    border-style: outset;\n"
+"    border-top-right-radius: 10;\n"
+"    border-bottom-right-radius: 10;\n"
+"    border-width: 1px;\n"
+"    border-left-width: 0px;\n"
+"    border-color: rgb(110, 110, 110);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color:rgb(220,220,220);\n"
+" }\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color:rgb(200,200,200);\n"
+" }")
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout.addWidget(self.pushButton)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        TwoWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(TwoWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 823, 21))
-        self.menubar.setObjectName("menubar")
-        TwoWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(TwoWindow)
-        self.statusbar.setObjectName("statusbar")
-        TwoWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(TwoWindow)
-        QtCore.QMetaObject.connectSlotsByName(TwoWindow)
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-    def retranslateUi(self, TwoWindow):
+    def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        TwoWindow.setWindowTitle(_translate("TwoWindow", "MainWindow"))
-        self.pushButton_2.setText(_translate("TwoWindow", "Добавить"))
-        # self.pushButton_3.setText(_translate("TwoWindow", "Удалить"))
-        self.pushButton.setText(_translate("TwoWindow", "Удалить"))
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.pushButton_2.setText(_translate("Dialog", "Добавить"))
+        self.pushButton.setText(_translate("Dialog", "Удалить"))

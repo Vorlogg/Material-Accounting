@@ -1,24 +1,26 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QModelIndex
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QModelIndex,Qt
 import sys
 from BD import Orm
 from dialog2 import Dialog2
 from diz1_2 import *
 
-bd = Orm()
-
-data = bd.allmat()
 
 
-class TwoWindow(QtWidgets.QMainWindow):
-    def __init__(self, id):
-        self.id = id
-        super().__init__()
-        self.ui = Ui_TwoWindow()
+class TwoWindow(QtWidgets.QDialog):
+    def __init__(self, root, id=None):
+        super().__init__(root)
+        self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.ui.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.pushButton_2.clicked.connect(self.add)
         self.ui.pushButton.clicked.connect(self.delfac)
+        self.setWindowModality(Qt.ApplicationModal)
+        self.bd = Orm()
+        if id:
+            self.id = id
+            data = self.bd.allfac(self.id)
+        self.now(data)
         self.idfac = False
 
     def now(self, data):
@@ -57,20 +59,18 @@ class TwoWindow(QtWidgets.QMainWindow):
             self.ui.tableWidget.setEnabled(False)
             self.ui.pushButton.setEnabled(False)
 
-
     def add(self):
         self.dualog = Dialog2(self.id)
         self.dualog.exec()
-        self.now(bd.allfac(self.id))
+        self.now(self.bd.allfac(self.id))
 
     @pyqtSlot(QModelIndex)
     def on_tableWidget_clicked(self, index: QModelIndex):  # получение индекса строки при нажатие
         self.idfac = int(self.ui.tableWidget.item(index.row(), 0).text())
 
-
     def delfac(self):
         if not self.idfac:
-            self.now(bd.allfac(self.id))
+            self.now(self.bd.allfac(self.id))
             msg = QMessageBox()
             msg.setWindowTitle("Ошибка")
             msg.setText("Вы не выбрали не один объект")
@@ -78,8 +78,8 @@ class TwoWindow(QtWidgets.QMainWindow):
             msg.exec()
         else:
             # print(self.idfac)
-            bd.delfac(self.idfac)
-            self.now(bd.allfac(self.id))
+            self.bd.delfac(self.idfac)
+            self.now(self.bd.allfac(self.id))
 
 # app = QtWidgets.QApplication([])
 # win = TwoWindow()
