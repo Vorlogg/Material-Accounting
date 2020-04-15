@@ -6,6 +6,8 @@ from BD import Orm
 from AddMater import AddMaterial
 from TwoWin import TwoWindow
 from AddFacil import AddFacility
+from AddRespons import AddResponsible
+from AddCons import AddConstructionObject
 
 
 class InputDialog(QtWidgets.QDialog):
@@ -239,19 +241,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_10.hide()
 
     def addres(self):
-        if not self.id:
-            self.now(self.bd.allres(), self.state)
-            msg = QMessageBox()
-            msg.setWindowTitle("Ошибка")
-            msg.setText("Вы не выбрали не одну запись")
-            msg.addButton('Ок', QMessageBox.RejectRole)
-            msg.exec()
-
-        else:
-            self.now(self.bd.allres(), self.state)
-            self.dualog2 = AddFacility(self.id)
-            self.dualog2.exec()
-            self.now(self.bd.allres(), self.state)
+        self.dualog3 = AddResponsible()
+        self.dualog3.exec()
+        self.now(self.bd.allres(), self.state)
 
     def constructionObject(self):
         self.state = 3
@@ -266,20 +258,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_6.show()
 
     def addcon(self):
-        if not self.id:
-            self.now(self.bd.allcon(), self.state)
-            msg = QMessageBox()
-            msg.setWindowTitle("Ошибка")
-            msg.setText("Вы не выбрали не одну запись")
-            msg.addButton('Ок', QMessageBox.RejectRole)
-            msg.exec()
+        self.dualog4 = AddConstructionObject()
+        self.dualog4.exec()
+        self.now(self.bd.allcon(), self.state)
 
-        else:
-            # print(self.id)
-            self.now(self.bd.allcon(), self.state)
-            self.dualog2 = AddFacility(self.id)
-            self.dualog2.exec()
-            self.now(self.bd.allcon(), self.state)
 
 
 app = QtWidgets.QApplication([])
