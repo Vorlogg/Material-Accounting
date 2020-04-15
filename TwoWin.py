@@ -8,7 +8,7 @@ from TwoWindow import *
 
 
 class TwoWindow(QtWidgets.QDialog):
-    def __init__(self, root, id=None):
+    def __init__(self, root, id=None,state=None):
         super().__init__(root)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
@@ -17,9 +17,20 @@ class TwoWindow(QtWidgets.QDialog):
         self.ui.pushButton.clicked.connect(self.delfac)
         self.setWindowModality(Qt.ApplicationModal)
         self.bd = Orm()
+        self.state=state
+        self.id = id
         if id:
-            self.id = id
-            data = self.bd.allfac(self.id)
+            if self.state == 1:
+                data = self.bd.allfac(self.id)
+            elif self.state == 2:
+                res = self.bd.getres(self.id)
+                fio = res.name + " " + res.family[0] + ". " + res.patronymic[0] + '.'
+                data = self.bd.resfacil(fio)
+            elif self.state == 3:
+                cons = self.bd.getcons(self.id)
+                data = self.bd.consfacil(cons.facility)
+            # self.id = id
+            # data = self.bd.allfac(self.id)
         self.now(data)
         self.idfac = False
 

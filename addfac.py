@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 209)
+        Dialog.resize(389, 209)
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(20, 20, 121, 20))
         self.label.setObjectName("label")
@@ -68,6 +68,12 @@ class Ui_Dialog(object):
         self.comboBox_2 = QtWidgets.QComboBox(Dialog)
         self.comboBox_2.setGeometry(QtCore.QRect(150, 50, 221, 22))
         self.comboBox_2.setObjectName("comboBox_2")
+        self.label_6 = QtWidgets.QLabel(Dialog)
+        self.label_6.setGeometry(QtCore.QRect(250, 140, 41, 20))
+        self.label_6.setObjectName("label_6")
+        self.lineEdit = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit.setGeometry(QtCore.QRect(290, 140, 81, 20))
+        self.lineEdit.setObjectName("lineEdit")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -80,3 +86,4 @@ class Ui_Dialog(object):
         self.label_3.setText(_translate("Dialog", "Наличие счета"))
         self.label_4.setText(_translate("Dialog", "Наличие накладных"))
         self.label_5.setText(_translate("Dialog", "Количество материала"))
+        self.label_6.setText(_translate("Dialog", "Ед.изм"))

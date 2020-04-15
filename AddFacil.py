@@ -10,11 +10,19 @@ class AddFacility(QtWidgets.QDialog):
         super(AddFacility, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.bd = Orm()
+        resens=self.bd.allresname()
+        for res in resens:
+            self.ui.comboBox.addItem(res)
+        cons=self.bd.allconname()
+        for con in cons:
+            self.ui.comboBox_2.addItem(con)
 
-        self.ui.comboBox.addItem("Да")
-        self.ui.comboBox.addItem("Нет")
-        self.ui.comboBox_2.addItem("Да")
-        self.ui.comboBox_2.addItem("Нет")
+
+        self.ui.comboBox_3.addItem("Да")
+        self.ui.comboBox_3.addItem("Нет")
+        self.ui.comboBox_4.addItem("Да")
+        self.ui.comboBox_4.addItem("Нет")
 
         self.ui.buttonBox.accepted.connect(self.add)
         self.ui.buttonBox.rejected.connect(self.close)
@@ -23,16 +31,17 @@ class AddFacility(QtWidgets.QDialog):
 
     def add(self):
         owner = self.id
-        name = self.ui.lineEdit.text()
-        facility = self.ui.lineEdit_2.text()
-        if "Да" == self.ui.comboBox.currentText():
+        name = self.ui.comboBox.currentText()
+        facility = self.ui.comboBox_2.currentText()
+        if "Да" == self.ui.comboBox_3.currentText():
             reckoning = True
         else:
             reckoning = False
-        if "Да" == self.ui.comboBox_2.currentText():
+        if "Да" == self.ui.comboBox_4.currentText():
             waybills = True
         else:
             waybills = False
+        count = self.ui.spinBox.value()
         count = self.ui.spinBox.value()
 
         # r = []

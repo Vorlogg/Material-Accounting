@@ -65,6 +65,12 @@ class Orm():
     def getfac(self, id):
         r = Facility.get(Facility.id == id)
         return r
+    def getres(self, id):
+        r = Responsible.get(Responsible.id == id)
+        return r
+    def getcons(self, id):
+        r = ConstructionObject.get(ConstructionObject.id == id)
+        return r
 
     def allmat(self):
         r = []
@@ -223,10 +229,69 @@ class Orm():
             r.append((id, facility, address, contract))
 
         return r
+    def resfacil(self, fio):
+        r = []
+        for fac in Facility.select().where(Facility.name == fio):
+            id = fac.id
+            name = fac.name
+            facility = fac.facility
+            if fac.reckoning:
+                reckoning = "Да"
+            else:
+                reckoning = "Нет"
+            if fac.waybills:
+                waybills = "Да"
+            else:
+                waybills = "Нет"
+            count = fac.count
+            # measure = fac.measure
 
+            r.append((id, name, facility, reckoning, waybills, count, ))
+        return r
+
+    def consfacil(self, facil):
+        r = []
+        for fac in Facility.select().where(Facility.facility == facil):
+            id = fac.id
+            name = fac.name
+            facility = fac.facility
+            if fac.reckoning:
+                reckoning = "Да"
+            else:
+                reckoning = "Нет"
+            if fac.waybills:
+                waybills = "Да"
+            else:
+                waybills = "Нет"
+            count = fac.count
+            # measure = fac.measure
+
+            r.append((id, name, facility, reckoning, waybills, count ))
+        return r
+    def allresname(self):
+        r = []
+        for mat in Responsible.select():
+            name = mat.name
+            family = mat.family
+            patronymic = mat.patronymic
+
+            fio = name + " " + family[0] + ". " + patronymic[0] + '.'
+            r.append(fio)
+
+        return r
+
+    def allconname(self):
+        r = []
+        for mat in ConstructionObject.select():
+            facility = mat.facility
+            r.append(facility)
+        return r
 
 bd = Orm()
-
+res = bd.getres(3)
+fio = res.name + " " + res.family[0] + ". " + res.patronymic[0] + '.'
+data = bd.resfacil(fio)
+print(data)
 # bd.addcon("Zavod", "2", "31")
 # bd.addcon("Zavod2", "2", "31")
 # bd.addcon("Zavod3", "2", "31")

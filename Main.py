@@ -198,10 +198,14 @@ class MainWindow(QtWidgets.QMainWindow):
         r = int(self.ui.tableWidget.item(index.row(), 0).text())
         if self.state == 1:
             data = self.bd.allfac(r)
-        # elif self.state==2:
-        #     data = self.bd.allres(r)
-        # elif self.state==3:
-        #     data = self.bd.allcon(r)
+        elif self.state == 2:
+            res = self.bd.getres(r)
+            fio = res.name + " " + res.family[0] + ". " + res.patronymic[0] + '.'
+            data = self.bd.resfacil(fio)
+
+        elif self.state == 3:
+            cons = self.bd.getcons(r)
+            data = self.bd.consfacil(cons.facility)
         if not data:
             msg = QMessageBox()
             msg.setWindowTitle("Ошибка")
@@ -210,7 +214,7 @@ class MainWindow(QtWidgets.QMainWindow):
             msg.exec()
 
         else:
-            self.twow = TwoWindow(self, r)
+            self.twow = TwoWindow(self, r, self.state)
             self.twow.show()
 
     def search(self):
