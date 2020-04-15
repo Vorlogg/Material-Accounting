@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QModelIndex,Qt
 import sys
 from BD import Orm
-from dialog2 import Dialog2
-from diz1_2 import *
+from AddFacil import AddFacility
+from TwoWindow import *
 
 
 
@@ -60,7 +60,7 @@ class TwoWindow(QtWidgets.QDialog):
             self.ui.pushButton.setEnabled(False)
 
     def add(self):
-        self.dualog = Dialog2(self.id)
+        self.dualog = AddFacility(self.id)
         self.dualog.exec()
         self.now(self.bd.allfac(self.id))
 

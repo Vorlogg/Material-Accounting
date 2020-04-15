@@ -1,12 +1,12 @@
 from PyQt5 import QtWidgets
-from diz3 import *  # импорт нашего сгенерированного файла
+from addmat import *  # импорт нашего сгенерированного файла
 import sys
 from BD import Orm
 
 
-class Dialog(QtWidgets.QDialog):
+class AddMaterial(QtWidgets.QDialog):
     def __init__(self):
-        super(Dialog, self).__init__()
+        super(AddMaterial, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
@@ -35,16 +35,5 @@ class Dialog(QtWidgets.QDialog):
             ndc = False
         count = self.ui.spinBox.value()
         price = self.ui.doubleSpinBox.value()
-        # print(price)
-
-        # r = []
-        # r.append((name, company, store, supplier, reckoning, ndc, count, price))
-        # print(r)
         self.bd.addmater(name, company, store, supplier, reckoning, ndc, count, price)
         self.close()
-
-#
-# app = QtWidgets.QApplication([])
-# application = Dialog()
-
-# sys.exit(app.exec())

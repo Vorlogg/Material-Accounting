@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'diz.ui'
+# Form implementation generated from reading ui file 'MainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -364,7 +364,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Учет материалов"))
         self.pushButton_7.setText(_translate("MainWindow", "Обьекты"))
         self.pushButton_8.setText(_translate("MainWindow", "Ответственные "))
         self.pushButton.setText(_translate("MainWindow", "Добавить запись"))

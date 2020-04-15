@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'diz1_2.ui'
+# Form implementation generated from reading ui file 'TwoWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -14,6 +14,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(753, 585)
+        Dialog.setAcceptDrops(False)
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.tableWidget = QtWidgets.QTableWidget(Dialog)
@@ -82,6 +83,6 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Записи"))
         self.pushButton_2.setText(_translate("Dialog", "Добавить"))
         self.pushButton.setText(_translate("Dialog", "Удалить"))

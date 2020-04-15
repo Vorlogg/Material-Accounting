@@ -1,12 +1,11 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel
-from diz import *
+from MainWindow import *
 import sys
 from BD import Orm
-from dialog import Dialog
-from dizain1_2 import TwoWindow
-from dialog2 import Dialog2
-
+from AddMater import AddMaterial
+from TwoWin import TwoWindow
+from AddFacil import AddFacility
 
 
 class InputDialog(QtWidgets.QDialog):
@@ -57,11 +56,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_4.clicked.connect(self.search)
         self.ui.pushButton_5.hide()
         self.ui.pushButton_5.clicked.connect(self.tomain)
-        self.ui.pushButton_6.clicked.connect(self.update)
-        self.ui.pushButton_7.clicked.connect(self.constructionObject)
-        self.ui.pushButton_8.clicked.connect(self.responsible)
-        self.ui.pushButton_9.hide()
-        self.ui.pushButton_10.hide()
+        self.ui.pushButton_6.clicked.connect(self.update)  # Материалы
+        self.ui.pushButton_7.clicked.connect(self.constructionObject)  # обьекты
+        self.ui.pushButton_8.clicked.connect(self.responsible)  # Ответсстевенные
+        self.ui.pushButton_9.clicked.connect(self.addres)  # добавить сотрудника
+        self.ui.pushButton_10.clicked.connect(self.addcon)  # добавить обьект
+        self.ui.pushButton_9.hide()  # добавить сотрудника
+        self.ui.pushButton_10.hide()  # добавить обьект
         self.bd = Orm()
         self.now(self.bd.allmat(), self.state)
         self.id = False
@@ -125,7 +126,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.pushButton_4.setEnabled(False)
 
     def addmat(self):
-        self.dualog = Dialog()
+        self.dualog = AddMaterial()
         self.dualog.exec()
         self.now(self.bd.allmat(), self.state)
 
@@ -141,48 +142,50 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             # print(self.id)
             self.now(self.bd.allmat(), self.state)
-            self.dualog2 = Dialog2(self.id)
+            self.dualog2 = AddFacility(self.id)
             self.dualog2.exec()
             self.now(self.bd.allmat(), self.state)
 
-    def delmat(self):# проблема с индексами после удаления
+    def delmat(self):  # проблема с индексами после удаления
         state = self.state
         if state == 1:
             if not self.id:
                 self.now(self.bd.allmat(), state)
                 msg = QMessageBox()
                 msg.setWindowTitle("Ошибка")
-                msg.setText("Вы не выбрали не один договор")
+                msg.setText("Вы не выбрали не одну запись")
                 msg.addButton('Ок', QMessageBox.RejectRole)
                 msg.exec()
             else:
-                # print(self.id)
                 self.bd.delmat(self.id)
                 self.now(self.bd.allmat(), state)
+                self.id = False
         elif state == 2:
             if not self.id:
                 self.now(self.bd.allres(), state)
                 msg = QMessageBox()
                 msg.setWindowTitle("Ошибка")
-                msg.setText("Вы не выбрали не один договор")
+                msg.setText("Вы не выбрали не одну запись")
                 msg.addButton('Ок', QMessageBox.RejectRole)
                 msg.exec()
             else:
                 # print(self.id)
                 self.bd.delres(self.id)
                 self.now(self.bd.allres(), state)
+                self.id = False
         elif state == 3:
             if not self.id:
                 self.now(self.bd.allcon(), state)
                 msg = QMessageBox()
                 msg.setWindowTitle("Ошибка")
-                msg.setText("Вы не выбрали не один договор")
+                msg.setText("Вы не выбрали не одну запись")
                 msg.addButton('Ок', QMessageBox.RejectRole)
                 msg.exec()
             else:
                 # print(self.id)
                 self.bd.delcon(self.id)
                 self.now(self.bd.allcon(), state)
+                self.id = False
 
     @pyqtSlot(QModelIndex)
     def on_tableWidget_clicked(self, index: QModelIndex):  # получение индекса строки при нажатие
@@ -205,9 +208,8 @@ class MainWindow(QtWidgets.QMainWindow):
             msg.exec()
 
         else:
-            self.twow = TwoWindow(self,r)
+            self.twow = TwoWindow(self, r)
             self.twow.show()
-
 
     def search(self):
         self.ui.pushButton_4.hide()
@@ -236,6 +238,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_9.show()
         self.ui.pushButton_10.hide()
 
+    def addres(self):
+        if not self.id:
+            self.now(self.bd.allres(), self.state)
+            msg = QMessageBox()
+            msg.setWindowTitle("Ошибка")
+            msg.setText("Вы не выбрали не одну запись")
+            msg.addButton('Ок', QMessageBox.RejectRole)
+            msg.exec()
+
+        else:
+            self.now(self.bd.allres(), self.state)
+            self.dualog2 = AddFacility(self.id)
+            self.dualog2.exec()
+            self.now(self.bd.allres(), self.state)
+
     def constructionObject(self):
         self.state = 3
         self.id = False
@@ -247,6 +264,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_10.show()
         self.ui.pushButton_4.show()
         self.ui.pushButton_6.show()
+
+    def addcon(self):
+        if not self.id:
+            self.now(self.bd.allcon(), self.state)
+            msg = QMessageBox()
+            msg.setWindowTitle("Ошибка")
+            msg.setText("Вы не выбрали не одну запись")
+            msg.addButton('Ок', QMessageBox.RejectRole)
+            msg.exec()
+
+        else:
+            # print(self.id)
+            self.now(self.bd.allcon(), self.state)
+            self.dualog2 = AddFacility(self.id)
+            self.dualog2.exec()
+            self.now(self.bd.allcon(), self.state)
 
 
 app = QtWidgets.QApplication([])

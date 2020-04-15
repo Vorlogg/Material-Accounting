@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
-from diz3_2 import *  # импорт нашего сгенерированного файла
+from addfac import *  # импорт нашего сгенерированного файла
 import sys
 from BD import Orm
 
 
-class Dialog2(QtWidgets.QDialog):
+class AddFacility(QtWidgets.QDialog):
     def __init__(self, id):
         self.id = id
-        super(Dialog2, self).__init__()
+        super(AddFacility, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
