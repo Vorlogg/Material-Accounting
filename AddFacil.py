@@ -17,12 +17,15 @@ class AddFacility(QtWidgets.QDialog):
         cons=self.bd.allconname()
         for con in cons:
             self.ui.comboBox_2.addItem(con)
+        self.measure=self.bd.getmatwes(self.id)
+
 
 
         self.ui.comboBox_3.addItem("Да")
         self.ui.comboBox_3.addItem("Нет")
         self.ui.comboBox_4.addItem("Да")
         self.ui.comboBox_4.addItem("Нет")
+        self.ui.lineEdit.setText(self.measure)
 
         self.ui.buttonBox.accepted.connect(self.add)
         self.ui.buttonBox.rejected.connect(self.close)
@@ -42,12 +45,12 @@ class AddFacility(QtWidgets.QDialog):
         else:
             waybills = False
         count = self.ui.spinBox.value()
-        count = self.ui.spinBox.value()
+        measure = self.bd.getmatwes(self.id)
 
         # r = []
         # r.append((name, company, store, supplier, reckoning, ndc, count, price))
         # print(r)
-        self.bd.addfacil(owner, name, facility, reckoning, waybills, count)
+        self.bd.addfacil(owner, name, facility, reckoning, waybills, count,measure)
         self.close()
 
 # app = QtWidgets.QApplication([])

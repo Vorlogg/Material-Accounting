@@ -95,7 +95,7 @@ class MainWindow(QtWidgets.QMainWindow):
             if state == 1:
                 self.ui.tableWidget.setHorizontalHeaderLabels(
                     ('Номер', 'Название материала', 'Фирма', 'Магазин', 'Поставщик',
-                     'Наличие счета', 'Наличие НДС', 'Количество', 'Общее количество', 'Цена за ед.Грн',
+                     'Наличие счета', 'Наличие НДС', 'Количество', 'Общее количество', 'Ед.изм','Цена за ед.Грн',
                      'Общая цена.Грн'))
             elif state == 2:
                 self.ui.tableWidget.setHorizontalHeaderLabels(

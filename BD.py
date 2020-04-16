@@ -13,6 +13,7 @@ class Material(Model):
     ndc = BooleanField()  # наличие ндс да/нет
     count = BigIntegerField()  # количество взятых материалов
     allCount = BigIntegerField()  # общее число материалов по договору
+    measure = CharField()  # ед.изм
     price = DoubleField()  # цена за ед.
     allprice = DoubleField()  # цена общая
 
@@ -27,7 +28,7 @@ class Facility(Model):
     reckoning = BooleanField()  # наличие счета да/нет
     waybills = BooleanField()  # наличие накладные да/нет
     count = BigIntegerField()  # текущие число взятых материалов
-
+    measure = CharField()  # ед.изм
     class Meta:
         database = db  # модель базы данных
 
@@ -90,10 +91,11 @@ class Orm():
                 ndc = "Нет"
             count = mat.count
             allCount = mat.allCount
+            measure = mat.measure
             price = mat.price
             allprice = mat.allprice
 
-            r.append((id, name, company, store, supplier, reckoning, ndc, count, allCount, price, allprice))
+            r.append((id, name, company, store, supplier, reckoning, ndc, count, allCount,measure, price, allprice))
         return r
 
     def allres(self):
@@ -120,9 +122,9 @@ class Orm():
 
         return r
 
-    def addmater(self, name, company, store, supplier, reckoning, ndc, count, price, ):
+    def addmater(self, name, company, store, supplier, reckoning, ndc, count,measure, price ):
         Material.create(name=name, company=company, store=store, supplier=supplier, reckoning=reckoning, ndc=ndc,
-                        count=count, allCount=count, price=price, allprice=count * price)
+                        count=count, allCount=count,measure=measure, price=price, allprice=count * price)
 
     def addres(self, name, family, patronymic, position):
         Responsible.create(name=name, family=family, patronymic=patronymic, position=position)
@@ -130,7 +132,7 @@ class Orm():
     def addcon(self, facility, address, contract):
         ConstructionObject.create(facility=facility, address=address, contract=contract)
 
-    def addfacil(self, owner, name, facility, reckoning, waybills, count):
+    def addfacil(self, owner, name, facility, reckoning, waybills, count,measure):
         r = Material.get(Material.id == owner)
         if r.count < count:
             msg = QMessageBox()
@@ -143,7 +145,7 @@ class Orm():
             r.count = r.count - count
             r.save()
             Facility.create(owner=owner, name=name, facility=facility, reckoning=reckoning, waybills=waybills,
-                            count=count)
+                            count=count,measure=measure)
 
     def delmat(self, id):
         r = Material.get(Material.id == id)
@@ -176,8 +178,9 @@ class Orm():
             else:
                 waybills = "Нет"
             count = fac.count
+            measure = fac.measure
 
-            r.append((id, name, facility, reckoning, waybills, count))
+            r.append((id, name, facility, reckoning, waybills, count,measure))
 
         return r
 
@@ -199,10 +202,11 @@ class Orm():
                 ndc = "Нет"
             count = mat.count
             allCount = mat.allCount
+            measure = mat.measure
             price = mat.price
             allprice = mat.allprice
 
-            r.append((id, name, company, store, supplier, reckoning, ndc, count, allCount, price, allprice))
+            r.append((id, name, company, store, supplier, reckoning, ndc, count, allCount,measure, price, allprice))
 
         return r
 
@@ -244,9 +248,9 @@ class Orm():
             else:
                 waybills = "Нет"
             count = fac.count
-            # measure = fac.measure
+            measure = fac.measure
 
-            r.append((id, name, facility, reckoning, waybills, count, ))
+            r.append((id, name, facility, reckoning, waybills, count,measure ))
         return r
 
     def consfacil(self, facil):
@@ -264,9 +268,9 @@ class Orm():
             else:
                 waybills = "Нет"
             count = fac.count
-            # measure = fac.measure
+            measure = fac.measure
 
-            r.append((id, name, facility, reckoning, waybills, count ))
+            r.append((id, name, facility, reckoning, waybills, count,measure ))
         return r
     def allresname(self):
         r = []
@@ -286,15 +290,18 @@ class Orm():
             facility = mat.facility
             r.append(facility)
         return r
+    def getmatwes(self, id):
+        res = Material.get(Material.id == id)
+        r=res.measure
+        return r
 
-bd = Orm()
-res = bd.getres(3)
-fio = res.name + " " + res.family[0] + ". " + res.patronymic[0] + '.'
-data = bd.resfacil(fio)
-print(data)
+bd=Orm()
+bd.addmater(12,2,21,12,123,41,231,13,1335)
+print(bd.allmat())
 # bd.addcon("Zavod", "2", "31")
 # bd.addcon("Zavod2", "2", "31")
 # bd.addcon("Zavod3", "2", "31")
 # bd.addres("Ivanov", "21", "12", "12")
 # bd.addres("Ivanov2", "21", "12", "12")
 # bd.addres("Ivanov3", "21", "12", "12")
+

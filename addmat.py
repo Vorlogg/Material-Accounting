@@ -87,6 +87,12 @@ class Ui_Dialog(object):
         self.doubleSpinBox.setGeometry(QtCore.QRect(150, 230, 91, 22))
         self.doubleSpinBox.setMaximum(9999999.99)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
+        self.label_9 = QtWidgets.QLabel(Dialog)
+        self.label_9.setGeometry(QtCore.QRect(250, 200, 41, 20))
+        self.label_9.setObjectName("label_9")
+        self.lineEdit_5 = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_5.setGeometry(QtCore.QRect(290, 200, 81, 20))
+        self.lineEdit_5.setObjectName("lineEdit_5")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -102,3 +108,4 @@ class Ui_Dialog(object):
         self.label_6.setText(_translate("Dialog", "Наличие ндс"))
         self.label_7.setText(_translate("Dialog", "Количество материала"))
         self.label_8.setText(_translate("Dialog", "Цена за ед.Грн"))
+        self.label_9.setText(_translate("Dialog", "Ед.изм"))

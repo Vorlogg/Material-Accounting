@@ -34,6 +34,7 @@ class AddMaterial(QtWidgets.QDialog):
         else:
             ndc = False
         count = self.ui.spinBox.value()
+        measure = self.ui.lineEdit_5.text()
         price = self.ui.doubleSpinBox.value()
-        self.bd.addmater(name, company, store, supplier, reckoning, ndc, count, price)
+        self.bd.addmater(name, company, store, supplier, reckoning, ndc, count,measure, price)
         self.close()

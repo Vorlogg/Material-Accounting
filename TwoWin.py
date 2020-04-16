@@ -48,7 +48,7 @@ class TwoWindow(QtWidgets.QDialog):
 
             self.ui.tableWidget.setHorizontalHeaderLabels(
                 ('Id', 'Имя(кто взял материалы)', 'объект',
-                 'Наличие счета', 'Наличие накладных', 'Количество')
+                 'Наличие счета', 'Наличие накладных', 'Количество','Ед.изм')
             )
             row = 0
             for tup in data:
