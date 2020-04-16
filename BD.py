@@ -295,13 +295,4 @@ class Orm():
         r=res.measure
         return r
 
-bd=Orm()
-bd.addmater(12,2,21,12,123,41,231,13,1335)
-print(bd.allmat())
-# bd.addcon("Zavod", "2", "31")
-# bd.addcon("Zavod2", "2", "31")
-# bd.addcon("Zavod3", "2", "31")
-# bd.addres("Ivanov", "21", "12", "12")
-# bd.addres("Ivanov2", "21", "12", "12")
-# bd.addres("Ivanov3", "21", "12", "12")
 
